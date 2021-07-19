@@ -1,0 +1,1 @@
+/Users/yanagswk/github/memo
