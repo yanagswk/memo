@@ -16,7 +16,7 @@
 ```
 
 
-- VSCode スニペットの追加  
+- VSCode スニペットの追加
 `Code(File)->Preferences(基本設定)->User Snippets(ユーザースペニット)->html` へ移動
 以下、追記。
 ```json
@@ -27,4 +27,9 @@
     ],
     "description": "php tag"
 }
-```
+```  
+
+# 設定  
+- trim : 空白設定
+
+# vscode拡張機能
