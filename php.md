@@ -439,7 +439,25 @@ Secureはhttpsのときのみcookieがセットできるようにする。
 <br>
 
 # Todo
-- filter_input、filter_input_arrayについて　送信されたものをそのまま利用するのではなく、filterをかけるのが重要
+- filter_input、filter_input_arrayについて　送信されたものをそのまま利用するのではなく、filterをかけるのが重要  
+
+<br>
+<br>
+
+# 配列の削除方法  
+- unset  
+- array_shift  
+
+# URL  
+- parse_url  
+- parse_str
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 - namesupaceで設定すると、PHPが標準で用意しているクラスにもnamespaceがついてしまう。それを会費するには、PHPが標準で用意しているクラスに「\」をつけてあげる。   
