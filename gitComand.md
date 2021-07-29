@@ -93,10 +93,31 @@
 - 現在自分がいるブランチにmergeされる。例えば、hogeブランチを取得したくて、`git pull origin hoge`とした時、  
 現在hogeブランチにいたら大丈夫だが、masterブランチにいた場合は、masterブランチにマージされる。
 - そのためpullするときは、pullするブランチに移動してからpullする。  
+- 最初のうちは、git fetchをしてからgit merge origin/masterをした方が良い。  
+
+# コンフリクトした場合  
+- コンフリクトを直した後に、git add してから git commit すれば良い。  
+- コンフリクしているときは、git statusをすると以下のようになる。  
+```sh
+$ git status  
+On branch work-branch
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   "ファイル名"
+        both modified:   "ファイル名"
+
+```
 
 # ブランチを利用した開発の流れ  
 masterブランチをリリース用のブランチに、開発はトピックブランチを作成して進めるのが基本
 
 # memo
 - origin : ショートカットでurlのリモートリポジトリ名
-- HEAD : 自分が作業しているブランチ名
+- HEAD : 自分が作業しているブランチ名  
+
+# Todo  
+- コミットしたものを後から複数のコミットに分割する方法(rebaseを使う？)  
+
