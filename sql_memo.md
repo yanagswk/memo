@@ -10,3 +10,12 @@
     - deleteより高速
     - where句は使用不可
     - auto_incrementは初期値となる (deleteはauto_incrementは初期化されない。)
+
+- 選択されているデータベース確認コマンド  
+  - select database();  
+
+- テーブルのSQL確認  
+  - show create table テーブル名;  
+  - show create table テーブル名\G; (縦に表示)  
+
+- 外部キーのon deleteにcascadeを設定したら、主キーのレコードが削除されたら、外部キーのレコードも削除される。
