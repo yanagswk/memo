@@ -450,7 +450,9 @@ Secureはhttpsのときのみcookieがセットできるようにする。
 
 # URL  
 - parse_url  
-- parse_str
+- parse_str  
+
+# self static parentの違い
 
 
 <br>

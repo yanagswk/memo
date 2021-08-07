@@ -33,3 +33,7 @@
 - trim : 空白設定
 
 # vscode拡張機能
+- formatter(自動整形)のショートカットキー  
+  - mac : shift + option(alt) + F  
+  - windows : Shift + Alt + F  
+  - 使用できない場合は、インストールされていないので、インストールする。
