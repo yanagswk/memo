@@ -1,0 +1,2 @@
+- variable : 変数
+- authorized : 承認済み
