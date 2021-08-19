@@ -22,3 +22,13 @@
 - キャッシュ削除
 `php artisan config:clear`
 `php artisan cache:clear`
+
+- 認証機能
+`php artisan make:auth`(laravel:ver5.8まで)
+`php artisan ui bootstrap --auth`(laravel:ver8)
+
+- リクエストフォーム作成(バリデーション)
+`php artisan make:request CartItemRequest`
+
+- 新しいクラス作ったり、ファイル名を変更した場合 [参考](https://prograshi.com/framework/laravel/laravel-error-class-not-found/)
+`composer dump-autoload`
