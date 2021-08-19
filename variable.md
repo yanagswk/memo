@@ -1,2 +1,7 @@
 - variable : 変数
 - authorized : 承認済み
+- register : 登録
+- Priority: 優先度
+- required: 必要
+- undefined: 未定義
+- description: 説明
