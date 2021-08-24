@@ -7,3 +7,16 @@
 - [ ] dockerfileやdocker-compose.yamlに記述されている`${MYSQL_PORT}:`について
 - [ ] sshについて
 - [ ] よく使うPHPの関数調べとく
+- [ ] interfaceやabstractについて
+- [ ] laravelのlogについて
+- [ ] ...について
+- [ ] php 正規表現について (regex:正規表現 - Laravel)[https://readouble.com/laravel/6.x/ja/validation.html#rule-regex](【5分でまるっと理解】PHP正規表現の使い方まとめ)[https://eng-entrance.com/php-regularex](preg_match - PHP公式マニュアル)[https://www.php.net/manual/ja/function.preg-match.php]  
+/^(?!.*\s).+$/uは、PHPにおいて半角スペースが無いこと、/^(?!.*\/).*$/uは/が無いことをチェックする正規表現  
+- [ ] クロージャーについて。ロージャの外側で定義されている変数を通常使用できません。対策としては、その場合はuseを使う。  
+- [ ] アクセサについて get...Attribute
+- [ ] (async/await)[https://www.codegrid.net/articles/2017-async-await-1]  
+- [ ] N+1問題
+- [ ] サービスコンテナ
+- [ ] laravel : エラーハンドリング
+- [ ] laravel : イベント
+- [ ] laravel : command
