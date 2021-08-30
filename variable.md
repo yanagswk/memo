@@ -5,3 +5,4 @@
 - required: 必要
 - undefined: 未定義
 - description: 説明
+- Attribute : 属性
