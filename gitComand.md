@@ -4,8 +4,9 @@
 
 |項目                         |コマンド                                     |備考                                                                                     |
 | ---                         | ---                                         | ---                                                                                     |
-|git 登録情報                 |git config --list                             |                                                                                 |
-|リポジトリをクローンする     |git clone <githubのurl>                       |                                                                                         |
+|git 登録情報                 |git config --list                             | リポジトリのアドレスの後に名前を指定すると、ルートフォルダ名を変更できる。                   |
+|リポジトリをクローンする     |git clone https://リポジトリのアドレス                       |                                                              |
+|特定のブランチをクローンする     |git clone -b ブランチ名 https://リポジトリのアドレス                      |                                                                                         |
 |ステージへ追加               |git add .                                    |.(ピリオド)ですべて追加                                                                  |
 |addを取り消す                |git reset HEAD <ファイル名>                  | リモートリポジトリから最新のコミットを取得して上書きする。 HEADは自分が作業しているブランチ名。 |
 |                             |git reset HEAD <ディレクトリ名>              |                                                                                         |
@@ -16,6 +17,7 @@
 |直前のコミットをやり直す      |git commit --amend                           | 中身もかえるなら、ファイルを直してaddした後に実行する。pushする前に実行する。 |
 |変更差分の確認 (add前)       |git diff (<ファイル名>)                       | ステージに追加する前にどのような変更を行ったかを確認。                          |
 |変更差分の確認 (add後)       |git diff --staged                            | コミットする前にどのような変更を行ったかを確認。                        |
+|コミット間の差分       |git diff コミットID                            | --name-onlyでファイル名のみの差分。git diff HEAD~で直前のコミットとの差分。                        |
 |変更したファイルを確認        |git status                                   | addできるファイルとcommitできるファイルを確認できる                                          |
 |                           |git status -s                                   | <span style="color: green; ">M(緑)</span>→git add されているけどまだ git commit されていないファイルの一覧    |
 |                           |                                                | <span style="color: red; ">M(赤)</span>→編集・変更・削除されているが、まだ git add されていないファイルの一覧    |
@@ -67,6 +69,8 @@
 |特定の作業を復元する       |git stash apply [スタッシュ名]                 |   スタッシュ名はlistで確認する。　stash@{1}みたいな感じ。                                    |
 |リモートとローカルの差          |git                                |                                                                   |
 |コマンドにエイリアス         |git config --global alias st status          | 省略したい単語、コマンドの順番。--globalでpc全体の設定になる。                          |
+|untracked file確認         |git clean -n          | -dnでディレクトリ確認                          |
+|untracked file削除         |git clean -f          | -dfでディレクトリ削除                          |
 
 
 # gitignore書き方
