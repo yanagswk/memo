@@ -18,4 +18,14 @@
   - show create table テーブル名;  
   - show create table テーブル名\G; (縦に表示)  
 
+- テーブルの詳細なカラム情報  
+```sql
+show full columns from テーブル名
+```
+
+- カラムの順番を変えたい  
+```sql
+alter table テーブル名 modify 移動したいカラム名 text after 移動したいカラム名の上にくるカラム名;
+```
+
 - 外部キーのon deleteにcascadeを設定したら、主キーのレコードが削除されたら、外部キーのレコードも削除される。

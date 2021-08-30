@@ -1,6 +1,5 @@
+## memo
 - Implicit Binding  [ドットインストール](https://dotinstall.com/lessons/basic_laravel_db/57413)
-
-- formを送信する際は、トークンを生成してセッションに設定しなければならないが、Laravelではformタグの中で「@csrf」を書くだけで、自動でトークンが仕込まれて、CSRF対策ができる。  
 
 - bladeで改行を含むhtmlを埋め込むには、{!! nl2br(e($post->body)) !!} こんな感じにする。[ドットインストール](https://dotinstall.com/lessons/basic_laravel_crud/58311)  
 
@@ -8,20 +7,22 @@
 
 - route/api.phpファイルにルーティングを記載すると自動的に /apiというURLが付与される。
 
+- updateOrCreate : 指定したカラムのパラメータが既に存在しており、別のカラムのパラメータを変更したいときは、update文を実行し、それ以外のときにinsert文を実行する
+
 - Laravelではコレクション型としてデータベースから情報を取得します。Object型の一種で、  
 Laravel独自の型でデータベースからデータを取得した際等はこの型になっています。  
 コレクションで利用可>能なメソッドは全部で100個以上あります。メソッドチェーンで記述が可能です。
 
-## タイムスタンプのないテーブルを更新する方法  
-`Column not found: 1054 Unknown column ‘updated_at’ in ‘field list’`  
-タイムスタンプのないテーブルを更新すると、上記のようなエラーが出る。  
-そのため、以下のようにタイムスタンプを無効にする。  
-```php
-$status = new Status;
-$status->name = 'キャンセル';
-$status->timestamps = false;
-$status->save();
-```
+- タイムスタンプのないテーブルを更新する方法  
+    `Column not found: 1054 Unknown column ‘updated_at’ in ‘field list’`  
+    タイムスタンプのないテーブルを更新すると、上記のようなエラーが出る。  
+    そのため、以下のようにタイムスタンプを無効にする。  
+    ```php
+    $status = new Status;
+    $status->name = 'キャンセル';
+    $status->timestamps = false;
+    $status->save();
+    ```
 
 - 新たにカラムを追加する場合は、このファイルを編集するのではなく、カラムを追加するためのマイグレーションファイルを作成。  
 (そうすることで、テーブルのカラムが増えた、減ったなどの履歴を管理しています。)
@@ -36,42 +37,13 @@ $status->save();
 
 - ログインするとセッションが記録されるため、リダイレクトされる。
 
+- 結果データ取得の際にget()を使用すると、StdClass オブジェクトのインスタンスを結果として含む Illuminate\Support\Collection オブジェクトとして返ってくる。各データにアクセスするには、foreachなどでループを回したりして、取得する。
+
 ## laravel用関数
 - getClientOriginalName() : ファイルアップロード時のファイル名取得
 - getClientOriginalExtension() : ファイルアップロード時の拡張子取得
 - getRealPath() : ファイルアップロード時のファイルのパスを取得
 
-
-
-## ミドルウェア(Middleware)について
-- laravelのフロー
-```
-HTTP Request
- ↓
-Route
- ↓
-**Before Middleware** (リクエストをチェックする機能)
- ↓
-Controller
- ↓
-View（Application）
- ↓
-**After Middleware** (レスポンスをチェックする機能)
- ↓
-Response
-```
-
-- App\Http\Kernelクラスに記述
-```php
-// Middlewareの関数
-public function handle(Request $request, Closure $next)
-    {
-        //処理
-
-        // $nextでrequestがコントローラーに渡される。
-        return $next($request);
-    }
-```
 
 ## Routeクラスの指定
 - Route::group
@@ -81,81 +53,18 @@ public function handle(Request $request, Closure $next)
 - Route::name
 
 ## Authクラス
+- 以下を実行することで、認証機能が取り込まれる。(コントローラ、ビュー、ルーティングが自動的に生成)
+  - `php artisan make:auth`(laravel:ver5.8まで?)
+  - `php artisan ui bootstrap --auth`(laravel:ver8)
+- ログイン後にデフォルトで/homeというパスにリダイレクトされる。変更するには、$redirectToプロパティを変更する。
 
-## ダミーデータ作成方法 (usersテーブルを例にする)
-[参考](https://qiita.com/shin1kt/items/022c2b8d576c203d8cf1)
+- 現在認証しているユーザーを取得
+`Auth::user();`
+- 現在認証しているユーザーのIDを取得
+`Auth::id();`
+- ログインしているか
+`Auth::check();` ログインしていればtrue
 
-### factor
-- seederに対して、テスト用にランダムデータを与えることができる
-- `php artisan make:factory UsersFactory`で`./database/factories`に作成される。
-以下のように記述
-```php
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence(rand(1,4)), // 1〜4つの単語で文章
-        'content' => $faker->realText(512), // 512文字の文章
-    ];
-});
-```
-
-
-### seeder
-- テストデータなどをデータベースに登録できるクラス
-- `php artisan make:seeder UsersTableSeeder`で`./database/seeds`に作成される。
-以下のように記述
-```php
-use Illuminate\Database\Seeder;
-
-class UsersTableSeeder extends Seeder
-{
-    // ダミーデータ直接設定することもできる
-    public function run()
-    {
-        DB::table('users')->insert([
-            ['name' => 'ジョブズ',
-            'email' => 'user1@example.com',
-            'sex' => '0',
-            'self_introduction' => 'ジョブズです',
-            'img_name' => 'sample001.jpg',
-            'password' => Hash::make('password123'),
-            ],
-            ['name' => 'ザッカーバーグ',
-            'email' => 'user2@example.com',
-            'sex' => '1',
-            'self_introduction' => 'ザッカーバーグです',
-            'img_name' => 'sample002.jpg',
-            'password' => Hash::make('password123'),
-            ],
-        ]);
-    }
-
-    // ダミーデータをランダムを指定したfactoryでの設定もできる
-    public function run()
-    {
-        // テストデータを15個作成
-        factory(User::class, 15)->create();
-    }
-}
-```
-
-- ダミーデータは`DatabaseSeeder.php`から呼び出されるから、以下のように編集
-```php
-use Illuminate\Database\Seeder;
-
-class DatabaseSeeder extends Seeder
-{
-    public function run()
-    {
-        $this->call(UsersTableSeeder::class);
-    }
-}
-```
-
-- composerコマンドでクラス設定の再読み込みをする  
-`composer dump-autoload`
-
-- ダミーデータをデータベースへ投入する
-`php artisan db:seed`
 
 ## サービスプロバイダー、コンテナ
 
@@ -165,3 +74,63 @@ class DatabaseSeeder extends Seeder
 
 ## Event クラスについて
 php artisan make:event ChatPushe
+
+## redirect('/')->withメソッド
+with()に指定した引数の値をセッションデータに保存したうえでリダイレクト
+
+# リレーション
+[公式](https://readouble.com/laravel/8.x/ja/eloquent-relationships.html#one-to-many)
+## 1対多
+ブログ投稿は、いくつものコメントを持つ場合がある。  
+Postモデル(ブログ情報のDB)とCommentモデル(コメント情報のDB)があるとする。
+- Postモデル
+    ```php
+    class Post extends Model
+    {
+        // ブログポストのコメントを取得
+        public function comments()
+        {
+            return $this->hasMany(Comment::class);
+        }
+    }
+    ```
+    EloquentはCommentモデルの外部キーカラムがデフォルトで、comment_idカラムであると想定します。
+    <br>
+    `hasMany`メソッドに以下のように引数を渡すことで、外部キーを指定できる。
+    ```php
+    return $this->hasMany(Comment::class, 'foreign_key');
+
+    return $this->hasMany(Comment::class, 'foreign_key', 'local_key');
+    ```
+    リレーションメソッドを定義したら、commentsプロパティにアクセスして、commentモデルを取得できる。
+    ```php
+    use App\Models\Post;
+
+    $comments = Post::find(1)->comments;
+    foreach ($comments as $comment) {
+        //
+    }
+    ```
+    また、commentsメソッドを呼び出し、クエリに条件をチェーンし続けて、リレーションのクエリへさらに制約を追加できる。
+    ```php
+    $comment = Post::find(1)->comments()
+                    ->where('title', 'foo')
+                    ->first();
+    ```
+
+- Commentモデル
+    ```php
+    class Comment extends Model
+    {
+        public function post()
+        {
+            return $this->belongsTo(Post::class);
+        }
+    }
+    ```
+
+
+- コントローラでjoinを記入
+- マイグレーションファイルに外部キーを設定して、マイグレードする
+
+## ヘルパー関数
