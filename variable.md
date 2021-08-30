@@ -1,2 +1,3 @@
 - variable : 変数
 - authorized : 承認済み
+- strict : 厳しい
