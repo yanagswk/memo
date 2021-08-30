@@ -27,35 +27,30 @@ Laravel独自の型でデータベースからデータを取得した際等は�
 - 新たにカラムを追加する場合は、このファイルを編集するのではなく、カラムを追加するためのマイグレーションファイルを作成。  
 (そうすることで、テーブルのカラムが増えた、減ったなどの履歴を管理しています。)
 
-- コントローラーの行数が長くなってきたと感じたらサービスなどに切り分けることで、
-できるだけ読みやすく、すっきりしたコントローラーファイルを維持する。
-
 - web.phpを使い、Route::group()で共通の処理をグルーピング化。  
 `Route::group(['prefix'=>'users', 'middleware'=>'auth'], コールバック関数(Route::get()など))`  
 'prefix'=>'users' : Urlの先頭にusersが付与 共通するurlを設定  
 'middleware'=>'auth' : 認証済みかどうかを判定  
 
-- ログインするとセッションが記録されるため、リダイレクトされる。
+- ログインするとセッションが記録されるため、リダイレクトされる。  
 
-- 結果データ取得の際にget()を使用すると、StdClass オブジェクトのインスタンスを結果として含む Illuminate\Support\Collection オブジェクトとして返ってくる。各データにアクセスするには、foreachなどでループを回したりして、取得する。
+- 直接urlを入力したら遷移してしまうのを防ぐために、middleware('auth');をcontrollerに定義して、ログインしていないとアクセスできないようにする。
 
-## laravel用関数
-- getClientOriginalName() : ファイルアップロード時のファイル名取得
-- getClientOriginalExtension() : ファイルアップロード時の拡張子取得
-- getRealPath() : ファイルアップロード時のファイルのパスを取得
+- 結果データ取得の際にget()を使用すると、StdClass オブジェクトのインスタンスを結果として含む Illuminate\Support\Collection オブジェクトとして返ってくる。各データにアクセスするには、foreachなどでループを回したりして、取得する。  
 
+- コントローラーにはあまり多くの処理を持たせないようにすることが望ましい。コントローラーが肥大化している状態はファットコントローラーとよばれ、アンチパターンとされています。 サービスファイルとして切り分けるようにする。
 
-## Routeクラスの指定
-- Route::group
+- $article->likesとすると、記事モデルからlikesテーブル経由で紐付いているユーザーモデルのコレクションが返りました。
+今回は、$article->likes()としており、多対多のリレーション(BelongsToManyクラスのインスタンス)が返ります。  
 
-- Route::middleware
+- Laravelでは、コントローラーのアクションメソッドで配列や連想配列を返すと、JSON形式に変換されてレスポンスされます。  
 
-- Route::name
+- 各テーブルモデルクラスは、`this->カラム名`みたいにプロパティとして扱える。
+
 
 ## Authクラス
 - 以下を実行することで、認証機能が取り込まれる。(コントローラ、ビュー、ルーティングが自動的に生成)
-  - `php artisan make:auth`(laravel:ver5.8まで?)
-  - `php artisan ui bootstrap --auth`(laravel:ver8)
+  - `php artisan ui bootstrap --auth`
 - ログイン後にデフォルトで/homeというパスにリダイレクトされる。変更するには、$redirectToプロパティを変更する。
 
 - 現在認証しているユーザーを取得
@@ -66,71 +61,5 @@ Laravel独自の型でデータベースからデータを取得した際等は�
 `Auth::check();` ログインしていればtrue
 
 
-## サービスプロバイダー、コンテナ
-
-## 定数はクラスで定義する
-
-## LOGについて
-
-## Event クラスについて
-php artisan make:event ChatPushe
-
 ## redirect('/')->withメソッド
 with()に指定した引数の値をセッションデータに保存したうえでリダイレクト
-
-# リレーション
-[公式](https://readouble.com/laravel/8.x/ja/eloquent-relationships.html#one-to-many)
-## 1対多
-ブログ投稿は、いくつものコメントを持つ場合がある。  
-Postモデル(ブログ情報のDB)とCommentモデル(コメント情報のDB)があるとする。
-- Postモデル
-    ```php
-    class Post extends Model
-    {
-        // ブログポストのコメントを取得
-        public function comments()
-        {
-            return $this->hasMany(Comment::class);
-        }
-    }
-    ```
-    EloquentはCommentモデルの外部キーカラムがデフォルトで、comment_idカラムであると想定します。
-    <br>
-    `hasMany`メソッドに以下のように引数を渡すことで、外部キーを指定できる。
-    ```php
-    return $this->hasMany(Comment::class, 'foreign_key');
-
-    return $this->hasMany(Comment::class, 'foreign_key', 'local_key');
-    ```
-    リレーションメソッドを定義したら、commentsプロパティにアクセスして、commentモデルを取得できる。
-    ```php
-    use App\Models\Post;
-
-    $comments = Post::find(1)->comments;
-    foreach ($comments as $comment) {
-        //
-    }
-    ```
-    また、commentsメソッドを呼び出し、クエリに条件をチェーンし続けて、リレーションのクエリへさらに制約を追加できる。
-    ```php
-    $comment = Post::find(1)->comments()
-                    ->where('title', 'foo')
-                    ->first();
-    ```
-
-- Commentモデル
-    ```php
-    class Comment extends Model
-    {
-        public function post()
-        {
-            return $this->belongsTo(Post::class);
-        }
-    }
-    ```
-
-
-- コントローラでjoinを記入
-- マイグレーションファイルに外部キーを設定して、マイグレードする
-
-## ヘルパー関数
