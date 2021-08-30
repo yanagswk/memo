@@ -1,5 +1,6 @@
 - variable : 変数
 - authorized : 承認済み
+- strict : 厳しい
 - register : 登録
 - Priority: 優先度
 - required: 必要
