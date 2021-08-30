@@ -423,7 +423,9 @@ foreach ($posts as $post) {
 
 <br>
 
-# トレイトとは
+# トレイトとは  
+- 汎用性の高い機能をトレイトとしてまとめておき、他の複数のクラスで共通して使う、といった使い方をする。  
+- Laravelではユーザー登録に関する機能をRegistersUsersトレイトとしてまとめておいてくれているので、もしRegisterControllerクラス以外にもユーザー登録に関するクラスを作りたい場合にも、このトレイトを使って効率的に開発できるようになっています。
 
 <br>
 <br>
@@ -461,8 +463,11 @@ Secureはhttpsのときのみcookieがセットできるようにする。
 <br>
 <br>
 
+- PHPの&&では、左側の式がfalseやnullでなければ、右側の式が実行される。
 
 - namesupaceで設定すると、PHPが標準で用意しているクラスにもnamespaceがついてしまう。それを会費するには、PHPが標準で用意しているクラスに「\」をつけてあげる。   
+
+- PHP7.1から、このnullableな型宣言が使用できる。[公式](https://www.php.net/manual/ja/migration71.new-features.php#migration71.new-features.nullable-types)
 
 - strposの使い方: https://techacademy.jp/magazine/11704  
     - mb_strpos マルチバイトに対応した関数(日本語の場合)
