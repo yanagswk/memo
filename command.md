@@ -68,3 +68,5 @@ EventServiceProviderに事前にイベントとリスナーを記述
 
 - テスト実行  
 `./vendor/bin/phpunit --testdox`
+
+Connection refused
