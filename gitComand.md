@@ -58,6 +58,7 @@
 |リモートから取得する (fetch)|git fetch <リモート名> (git fetch origin)    | リモートリポジトリからローカルリポジトリに取得。ワークツリーには反映されない。remote/リモート/ブランチに保存される。 反映するには、git merge origin/masterをする。  |
 |プルのマージ型               |git pull <リモート名> <ブランチ名>           | git pull origin master  リモートリポジトリからローカルリポジトリに取得して、ワークツリーにも反映する。|
 |プルのリベース型             |git pull --rebase <リモート名> <ブランチ名>  | git pull --rebase origin master master                                                  |
+|無関係な履歴のプルのマージ型             |git pull --allow-unrelated-histories   |  `fatal: refusing to merge unrelated histories` の時に使える。     |
 |タグ作成(軽量版タグ)         |git tag [タグ名]                             |                                                                                         |
 |タグを作成(注釈付きタグ)     |git tag -a [タグ名] -m "[メッセージ]"        |                                                                                         |
 |                             |git push [リモート名] [タグ名]               | タグをリモートリポジトリに送信する                                                      |

@@ -1,5 +1,6 @@
 - [ ] 直前のコミットをやり直して、pushをやり直す(push済み)。その際、やり直す前のコミット履歴を消したい。
 - [ ] 2,3つ前のコミットをやり直して、やり直す前の履歴を消す。
+- [ ] 2つ前のコミットをやり直す(pushしてしまった場合はどうすれば良いか)
 - [X] masterブランチではなく、別のブランチで作業をしていて、`git push origin master`をしてしまった時の対処
 ->エラーが出るためできない
 - [X] 一つコミットで変更したファイル名や内容を知りたい。一つ前のコミットとの差分の確認。  
@@ -22,7 +23,8 @@
 - [ ] (async/await)[https://www.codegrid.net/articles/2017-async-await-1]  
 - [ ] N+1問題
 - [X] laravel : アクセサ、ミューテタ  
-モデルのプロパティ(テーブルのカラム)と同じ感覚で呼び出せる  
+->モデルのプロパティ(テーブルのカラム)と同じ感覚で呼び出せる  
+- [ ] get...Attribute __toStringのアクセサの使い方(laravelのバージョン6)
 - [X] laravel : ポリシー
 - [ ] laravel : ゲート
 - [X] laravel : サービス
@@ -40,7 +42,22 @@
 - [ ] キュー
 - [ ] APIリソース
 - [ ] laravelのヘルパー関数
-- [ ] self static parentの違い
+- [X] self parent thisの違い
+- [ ] array_multisort
+- [X] laravel : スコープ
+- [ ] Builder
+- [ ] Session::
+- [X] クラスの先頭にバックスラッシュ  
+-> 名前空間が定義されたクラスから、名前空間を指定していない（いずれの名前空間にも属さない）クラスを使用する場合、使用するクラス名の先頭に\（バックスラッシュ）を記述する。  
+-> 名前空間が定義されたクラスから、その外にあるクラスを呼び出すときは先頭にバックスラッシュをつける。  
+-> https://prograshi.com/language/php/php-back-slash-on-top/
+- [X] where()->value()
+- [ ] $request->input()
+- [ ] view()->render()
+- [ ] new Carbon
+- [ ] exec 接続のやり方 -it
+- [ ] php.ini設定　php.ini-devなど　display_errorsとdisplay_startup_errorsの違い　画面にエラー
+- [ ] vscode シングルクオーテーションを禁止にしたい
 - [X] docker-compose : トップレベルのvolumes(名前付きボリューム)とは？  
     ```
     単体のサービス内だけでなく、複数のサービス（例えばwebとdb）内のvolumesから参照できる。  
