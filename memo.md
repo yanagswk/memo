@@ -9,4 +9,7 @@
 `sudo lsof -P | grep "LISTEN"`
 
 - -i: ポート番号を指定する
-`sudo lsof -P -i:80 | grep "LISTEN"`
+`sudo lsof -P -i:80 | grep "LISTEN"`  
+
+- リファクタリング  
+コンピュータプログラミングにおいて、プログラムの外部から見た動作を変えずにソースコードの内部構造を整理すること
